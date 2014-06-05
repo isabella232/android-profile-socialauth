@@ -220,7 +220,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
         });
     }
 
-    @Override
+//    @Override
     public void getFeeds(final SocialCallbacks.FeedsListener feedsListener) {
         getSocialAuthAdapter().getFeedsAsync(new SocialAuthListener<List<Feed>>() {
             @Override
