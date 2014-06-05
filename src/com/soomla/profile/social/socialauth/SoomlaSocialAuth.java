@@ -188,7 +188,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
                 }
             });
         } catch (Exception e) {
-            socialActionListener.fail(e.getMessage());
+            socialActionListener.fail(e.getMessage() + ": " + filePath);
         }
     }
 
