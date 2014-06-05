@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_androidprofilesocialauth" default="compile.module.androidprofilesocialauth">
+  <dirname property="module.androidprofilesocialauth.basedir" file="${ant.file.module_androidprofilesocialauth}"/>
+
+    <property name="aidl" value="${jdk.home.android.platform.tools}aidl" />
+    <property name="framework-aidl" value="${jdk.home.android.platform}framework.aidl" />
+
+  <property name="module.jdk.home.androidprofilesocialauth" value="${jdk.home.android}"/>
+  <property name="module.jdk.bin.androidprofilesocialauth" value="${jdk.bin.android}"/>
+  <property name="module.jdk.classpath.androidprofilesocialauth" value="jdk.classpath.android"/>
+  
+  <property name="compiler.args.androidprofilesocialauth" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="androidprofilesocialauth.output.dir" value="${module.androidprofilesocialauth.basedir}/out/production/androidprofilesocialauth"/>
+  
+  <path id="androidprofilesocialauth.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="androidprofilesocialauth.module.production.classpath">
+    <path refid="${module.jdk.classpath.androidprofilesocialauth}"/>
+    <pathelement location="${basedir}/libs/AndroidStore.jar"/>
+    <pathelement location="${basedir}/libs/in-app-purchasing-1.0.3.jar"/>
+  </path>
+  
+  <path id="androidprofilesocialauth.runtime.production.module.classpath">
+    <pathelement location="${androidprofilesocialauth.output.dir}"/>
+    <pathelement location="${basedir}/libs/AndroidStore.jar"/>
+    <pathelement location="${basedir}/libs/in-app-purchasing-1.0.3.jar"/>
+  </path>
+  
+  <path id="androidprofilesocialauth.module.classpath">
+    <path refid="${module.jdk.classpath.androidprofilesocialauth}"/>
+    <pathelement location="${androidprofilesocialauth.output.dir}"/>
+    <pathelement location="${basedir}/libs/AndroidStore.jar"/>
+    <pathelement location="${basedir}/libs/in-app-purchasing-1.0.3.jar"/>
+  </path>
+  
+  <path id="androidprofilesocialauth.runtime.module.classpath">
+    <pathelement location="${androidprofilesocialauth.output.dir}"/>
+    <pathelement location="${basedir}/libs/AndroidStore.jar"/>
+    <pathelement location="${basedir}/libs/in-app-purchasing-1.0.3.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.androidprofilesocialauth">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.androidprofilesocialauth">
+    <patternset refid="compiler.excluded"/>
+    <patternset refid="excluded.from.module.androidprofilesocialauth"/>
+  </patternset>
+  
+  <path id="androidprofilesocialauth.module.sourcepath">
+    <dirset dir="${module.androidprofilesocialauth.basedir}">
+      <include name="src"/>
+        <include name=".idea/gen/com/android"/>
+    </dirset>
+  </path>
+  
+  <target name="config">
+
+    <property name="config-target-path" value="${basedir}/src/com/soomla/store/"/>
+
+    <!-- Copy the configuration file, replacing tokens in the file. -->
+    <copy file="config/StoreConfig.java" todir="${config-target-path}"
+          overwrite="true" encoding="utf-8">
+     <filterset>
+      <filter token="CONFIG.LOGGING" value="${logging}"/>
+     </filterset>
+    </copy>
+  
+    <!-- Now set it to read-only, as we don't want people accidentally
+         editing the wrong one. NOTE: This step is unnecessary, but I do
+         it so the developers remember that this is not the original file. -->
+    <!-- <chmod file="${config-target-path}/StoreConfig.java" perm="-w"/> -->
+    <!-- <attrib file="${config-target-path}/StoreConfig.java" readonly="true"/> -->
+
+   </target>
+
+    <target name="compile.module.androidprofilesocialauth" depends="compile.module.androidprofilesocialauth.production" description="Compile module androidprofilesocialauth"/>
+  
+  <target name="compile.module.androidprofilesocialauth.production" description="Compile module androidprofilesocialauth; production classes" >
+    <mkdir dir="${androidprofilesocialauth.output.dir}"/>
+    <javac destdir="${androidprofilesocialauth.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.androidprofilesocialauth}/javac">
+      <compilerarg line="${compiler.args.androidprofilesocialauth}"/>
+      <bootclasspath refid="androidprofilesocialauth.module.bootclasspath"/>
+      <classpath refid="androidprofilesocialauth.module.production.classpath"/>
+      <src refid="androidprofilesocialauth.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.androidprofilesocialauth"/>
+    </javac>
+    
+    <copy todir="${androidprofilesocialauth.output.dir}">
+      <fileset dir="${module.androidprofilesocialauth.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.androidprofilesocialauth"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.androidprofilesocialauth" description="cleanup module">
+    <delete dir="${androidprofilesocialauth.output.dir}"/>
+  </target>
+</project>

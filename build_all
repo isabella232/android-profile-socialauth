@@ -1,0 +1,3 @@
+#ant -buildfile android-profile-socialauth.xml -Dlogging="true" -Dsoomla.filename="Soomla_debug" all
+#ant -buildfile android-profile-socialauth.xml -Dlogging="false" -Dsoomla.filename="Soomla_release" all
+ant -buildfile android-profile-socialauth.xml -Dsoomla.filename="AndroidProfileSocialAuth" all
