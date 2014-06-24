@@ -11,8 +11,8 @@ import com.soomla.profile.domain.IProvider;
 import com.soomla.profile.domain.UserProfile;
 import com.soomla.profile.social.ISocialProvider;
 import com.soomla.profile.social.SocialCallbacks;
-import com.soomla.store.SoomlaApp;
-import com.soomla.store.StoreUtils;
+import com.soomla.SoomlaApp;
+import com.soomla.SoomlaUtils;
 
 import org.brickred.socialauth.Contact;
 import org.brickred.socialauth.Feed;
@@ -51,7 +51,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
             @Override
             public void onComplete(Bundle bundle) {
                 SocialAuthAdapter.Provider saProvider = saProviderFromSAName(bundle.getString(SocialAuthAdapter.PROVIDER));
-                StoreUtils.LogDebug(TAG, "Login completed for SocialAuth provider: " + saProvider.name());
+                SoomlaUtils.LogDebug(TAG, "Login completed for SocialAuth provider: " + saProvider.name());
                 if (mLoginListener != null) {
                     mLoginListener.success(providerFromSAProvider(saProvider));
                     mLoginListener = null;
@@ -60,7 +60,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
 
             @Override
             public void onError(SocialAuthError socialAuthError) {
-                StoreUtils.LogError(TAG, socialAuthError.getMessage());
+                SoomlaUtils.LogError(TAG, socialAuthError.getMessage());
                 if (mLoginListener != null) {
                     mLoginListener.fail(socialAuthError.getMessage());
                     mLoginListener = null;
@@ -69,7 +69,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
 
             @Override
             public void onCancel() {
-                StoreUtils.LogDebug(TAG, "Login canceled");
+                SoomlaUtils.LogDebug(TAG, "Login canceled");
                 if (mLoginListener != null) {
                     mLoginListener.cancel();
                     mLoginListener = null;
@@ -78,7 +78,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
 
             @Override
             public void onBack() {
-                StoreUtils.LogDebug(TAG, "Login canceled (back)");
+                SoomlaUtils.LogDebug(TAG, "Login canceled (back)");
                 if (mLoginListener != null) {
                     mLoginListener.cancel();
                     mLoginListener = null;
@@ -134,7 +134,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
                 }
             });
         } catch (UnsupportedEncodingException e) {
-            StoreUtils.LogDebug(TAG, e.getMessage());
+            SoomlaUtils.LogDebug(TAG, e.getMessage());
             socialActionListener.fail(e.getMessage());
         }
     }
@@ -160,7 +160,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
                 }
             });
         } catch (Exception e) {
-            StoreUtils.LogDebug(TAG, e.getMessage());
+            SoomlaUtils.LogDebug(TAG, e.getMessage());
             socialActionListener.fail(e.getMessage());
         }
     }
@@ -198,7 +198,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
             @Override
             public void onExecute(String provider, List<Contact> contacts) {
                 if (contacts == null) {
-                    StoreUtils.LogDebug(TAG, "null contacts? setting to empty");
+                    SoomlaUtils.LogDebug(TAG, "null contacts? setting to empty");
                     contacts = new ArrayList<Contact>();
                 }
 
@@ -226,7 +226,7 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
             @Override
             public void onExecute(String provider, List<Feed> saFeeds) {
                 if (saFeeds == null) {
-                    StoreUtils.LogDebug(TAG, "null feeds? setting to empty");
+                    SoomlaUtils.LogDebug(TAG, "null feeds? setting to empty");
                     saFeeds = new ArrayList<Feed>();
                 }
 
