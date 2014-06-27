@@ -260,9 +260,10 @@ public abstract class SoomlaSocialAuth implements ISocialProvider {
             @Override
             public void onExecute(String providerName, Profile profile) {
                 UserProfile userProfile = new UserProfile(getProvider(), profile.getValidatedId(),
-                        profile.getDisplayName(), profile.getEmail(),
+                        profile.getFullName(), profile.getEmail(),
                         profile.getFirstName(), profile.getLastName());
                 userProfile.setAvatarLink(profile.getProfileImageURL());
+
 
                 userProfileListener.success(userProfile);
             }
